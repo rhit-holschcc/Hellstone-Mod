@@ -1,5 +1,8 @@
 package com.example.examplemod;
 
+import clojure.java.api.Clojure;
+import clojure.lang.IFn;
+
 import com.mojang.logging.LogUtils;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -23,6 +26,14 @@ public class ExampleMod
 {
     // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
+    
+    public static void main(String[] args) {
+    	IFn require = Clojure.var("clojure.core", "require");
+    	require.invoke(Clojure.read("com.example.HellstoneMod"));
+    	
+        IFn helloWorld = Clojure.var("com.example.HellstoneMod", "clj-message");
+        System.out.println(helloWorld.invoke());
+    }
 
     public ExampleMod()
     {
@@ -42,6 +53,12 @@ public class ExampleMod
         // some preinit code
         LOGGER.info("HELLO FROM PREINIT");
         LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
+
+    	IFn require = Clojure.var("clojure.core", "require");
+    	require.invoke(Clojure.read("com.example.HellstoneMod"));
+    	
+        IFn helloWorld = Clojure.var("com.example.HellstoneMod", "clj-message");
+        System.out.println(helloWorld.invoke());
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)

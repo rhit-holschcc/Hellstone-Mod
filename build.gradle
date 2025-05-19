@@ -3,6 +3,13 @@ plugins {
     id 'idea'
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+    id 'java'
+    id 'dev.clojurephant.clojure' version '0.8.0'
+    id 'application'
+}
+
+application {
+	mainClass = 'com.example.examplemod.ExampleMod'
 }
 
 version = mod_version
@@ -17,6 +24,7 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
 minecraft {
+	//implementation 'org.clojure:clojure:1.12.0'
     // The mappings can be changed at any time and must be in the following format.
     // Channel:   Version:
     // official   MCVersion             Official field/method names from Mojang mapping files
@@ -145,6 +153,12 @@ dependencies {
     // For more info:
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
+    
+    // https://mvnrepository.com/artifact/org.clojure/clojure
+	//implementation 'org.clojure:clojure:1.12.0'
+	minecraftLibrary 'org.clojure:clojure:1.12.0'
+            
+    //runtimeOnly files('run/libs/clojure-1.12.0.jar')
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
@@ -196,6 +210,7 @@ publishing {
         }
     }
     repositories {
+    	mavenCentral()
         maven {
             url "file://${project.projectDir}/mcmodsrepo"
         }
