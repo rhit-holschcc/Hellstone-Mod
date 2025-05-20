@@ -3,13 +3,8 @@ plugins {
     id 'idea'
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
-    id 'java'
+    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
     id 'dev.clojurephant.clojure' version '0.8.0'
-    id 'application'
-}
-
-application {
-	mainClass = 'com.example.examplemod.ExampleMod'
 }
 
 version = mod_version
@@ -130,6 +125,14 @@ repositories {
     // flatDir {
     //     dir 'libs'
     // }
+    mavenCentral()
+    maven {
+		name = 'clojars'
+		url = 'https://repo.clojars.org'
+    }
+    maven {
+        url "https://cursemaven.com"
+    }
 }
 
 dependencies {
@@ -153,12 +156,9 @@ dependencies {
     // For more info:
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
-    
     // https://mvnrepository.com/artifact/org.clojure/clojure
-	//implementation 'org.clojure:clojure:1.12.0'
-	minecraftLibrary 'org.clojure:clojure:1.12.0'
-            
-    //runtimeOnly files('run/libs/clojure-1.12.0.jar')
+    implementation fg.deobf('curse.maven:clojurelib-402772:3034681')
+    implementation 'org.clojure:clojure:1.12.0'
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
@@ -202,6 +202,15 @@ tasks.named('jar', Jar).configure {
 // tasks.named('publish').configure {
 //     dependsOn 'reobfJar'
 // }
+
+clojure {
+    builds {
+	main {
+	    aotAll()
+	    setReflection("fail")
+	}
+    }
+}
 
 publishing {
     publications {
