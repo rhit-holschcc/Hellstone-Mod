@@ -35,7 +35,4 @@
       (registerItem "fireproof_elytra" (helpful/mkSupplier (new ElytraItem (helpful/mkProperties (. CreativeModeTab TAB_TRANSPORTATION)
                                                                                                  [helpful/fireproof
                                                                                                   (durability 432)
-                                                                                                  (fn [properties] (.rarity ^Item$Properties properties (. Rarity UNCOMMON)))]))))
-      (registerItem "fireproof_shulker_box" (helpful/mkSupplier (new BlockItem (. Blocks SHULKER_BOX) (helpful/mkProperties (. CreativeModeTab TAB_DECORATIONS)
-                                                                                                                            [helpful/fireproof
-                                                                                                                             (fn [properties] (.stacksTo ^Item$Properties properties 1))])))))))
+                                                                                                  (fn [properties] (.rarity ^Item$Properties properties (. Rarity UNCOMMON)))])))))))
