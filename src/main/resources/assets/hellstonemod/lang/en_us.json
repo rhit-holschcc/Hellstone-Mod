@@ -1,3 +1,4 @@
 {
-	"block.hellstonemod.hellstone_ore": "Hellstone Ore"
+  "block.hellstonemod.hellstone_ore": "Hellstone Ore",
+  "item.hellstonemod.hellstone_ingot": "Hellstone Ingot"
 }
