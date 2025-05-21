@@ -10,6 +10,10 @@
 (import net.minecraft.world.item.ArmorMaterials)
 (import java.util.function.Supplier)
 
+(defmacro mkSupplier
+  [item]
+  `(reify Supplier (get [_] ~item)))
+
 (defn register [eventBus modId]
   (let [^DeferredRegister ITEMS (DeferredRegister/create ForgeRegistries/ITEMS ^String modId),
         itemRegister (fn [eventBus]
@@ -22,12 +26,8 @@
           registerItem (fn [name supplier]
                          (.register ^DeferredRegister ITEMS name supplier)),
           fireproof (fn [properties] (.fireResistant ^Item$Properties properties))]
-      (dorun (map (fn [name] (registerItem name (reify Supplier
-                                                  (get [_]
-                                                    (new Item (mkProperties (. CreativeModeTab TAB_MATERIALS) [fireproof]))))))
+      (dorun (map (fn [name] (registerItem name (mkSupplier (new Item (mkProperties (. CreativeModeTab TAB_MATERIALS) [fireproof])))))
                   ["raw_hellstone" "hellstone_ingot" "fireproof_plating"]))
-      (registerItem "fireproof_turtle_helmet" (reify Supplier
-                                                (get [_]
-                                                  (new ArmorItem (. ArmorMaterials TURTLE)
-                                                       (. EquipmentSlot HEAD)
-                                                       (mkProperties (. CreativeModeTab TAB_COMBAT) [fireproof]))))))))
+      (registerItem "fireproof_turtle_helmet" (mkSupplier (new ArmorItem (. ArmorMaterials TURTLE)
+                                                               (. EquipmentSlot HEAD)
+                                                               (mkProperties (. CreativeModeTab TAB_COMBAT) [fireproof])))))))
