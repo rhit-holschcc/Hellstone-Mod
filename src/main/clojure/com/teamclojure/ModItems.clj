@@ -3,8 +3,11 @@
 (import net.minecraftforge.registries.DeferredRegister)
 (import net.minecraftforge.registries.ForgeRegistries)
 (import net.minecraft.world.item.Item)
+(import net.minecraft.world.item.ArmorItem)
 (import net.minecraft.world.item.Item$Properties)
 (import net.minecraft.world.item.CreativeModeTab)
+(import net.minecraft.world.entity.EquipmentSlot)
+(import net.minecraft.world.item.ArmorMaterials)
 (import java.util.function.Supplier)
 
 (defn register [eventBus modId]
@@ -13,13 +16,19 @@
                        (.register ^DeferredRegister ITEMS eventBus))]
     (itemRegister eventBus)
     ; funs should be a list of functions that take an Item.Properties & return an Item.Properties
-    (let [registerItem (fn [name tab funs]
+    (let [mkProperties (fn [tab funs] (reduce (fn [prev fun] (fun prev))
+                                              (.tab (net.minecraft.world.item.Item$Properties.) tab)
+                                              funs)),
+          registerItem (fn [name properties]
                          (.register ^DeferredRegister ITEMS name
                                     (reify Supplier
                                       (get [_]
-                                        (new Item (reduce (fn [prev fun] (fun prev))
-                                                          (.tab (net.minecraft.world.item.Item$Properties.) tab)
-                                                          funs)))))),
+                                        (new Item properties))))),
           fireproof (fn [properties] (.fireResistant ^Item$Properties properties))]
-      (dorun (map (fn [name] (registerItem name (. CreativeModeTab TAB_MATERIALS) [fireproof]))
-                  ["raw_hellstone" "hellstone_ingot" "fireproof_plating"])))))
+      (dorun (map (fn [name] (registerItem name (mkProperties (. CreativeModeTab TAB_MATERIALS) [fireproof])))
+                  ["raw_hellstone" "hellstone_ingot" "fireproof_plating"]))
+      (.register ^DeferredRegister ITEMS "fireproof_turtle_helmet" (reify Supplier
+                                                                     (get [_]
+                                                                       (new ArmorItem (. ArmorMaterials TURTLE)
+                                                                            (. EquipmentSlot HEAD)
+                                                                            (mkProperties (. CreativeModeTab TAB_COMBAT) [fireproof]))))))))
