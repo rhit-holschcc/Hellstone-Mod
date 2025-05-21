@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "hellstonemod:raw_hellstone"
+  },
+  "result": "hellstonemod:hellstone_ingot",
+  "experience": 0.9,
+  "cookingtime": 200
+}
