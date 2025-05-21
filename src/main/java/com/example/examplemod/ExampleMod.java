@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
@@ -26,9 +27,9 @@ public class ExampleMod
 {
     // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
+    private static IFn require = Clojure.var("clojure.core", "require");
     
     public static void main(String[] args) {
-    	IFn require = Clojure.var("clojure.core", "require");
     	require.invoke(Clojure.read("com.example.HellstoneMod"));
     	
         IFn helloWorld = Clojure.var("com.example.HellstoneMod", "clj-message");
@@ -37,13 +38,18 @@ public class ExampleMod
 
     public ExampleMod()
     {
+    	IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
+    	require.invoke(Clojure.read("com.example.HellstoneMod"));
+
         // Register the setup method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         // Register the enqueueIMC method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
         // Register the processIMC method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
-
+        
+        IFn start = Clojure.var("com.example.HellstoneMod", "start");
+        start.invoke(eventBus);
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
     }
@@ -54,7 +60,6 @@ public class ExampleMod
         LOGGER.info("HELLO FROM PREINIT");
         LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
 
-    	IFn require = Clojure.var("clojure.core", "require");
     	require.invoke(Clojure.read("com.example.HellstoneMod"));
     	
         IFn helloWorld = Clojure.var("com.example.HellstoneMod", "clj-message");
