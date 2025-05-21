@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:turtle_helmet"
+  },
+  "addition": {
+    "item": "hellstonemod:fireproof_plating"
+  },
+  "result": {
+    "item": "hellstonemod:fireproof_turtle_helmet"
+  }
+}
