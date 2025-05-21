@@ -1,4 +1,5 @@
 {
+  "parent": "block/cube_all",
   "textures": {
     "particle": "hellstonemod:block/fireproof_shulker_box"
   }

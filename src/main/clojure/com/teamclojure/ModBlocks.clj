@@ -40,6 +40,6 @@
                      (. CreativeModeTab TAB_MISC)
                      [helpful/fireproof])
       (registerBlock "fireproof_shulker_box" (helpful/mkSupplier (new ShulkerBoxBlock (. DyeColor YELLOW)
-                                                                      (.noOcclusion (.dynamicShape (.strength (BlockBehaviour$Properties/of Material/SHULKER_SHELL) 2.0)))))
+                                                                      (.strength (BlockBehaviour$Properties/of Material/STONE) 2.0)))
                      (. CreativeModeTab TAB_DECORATIONS)
                      [helpful/fireproof]))))
