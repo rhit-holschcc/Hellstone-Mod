@@ -4,6 +4,8 @@
 (import net.minecraftforge.registries.ForgeRegistries)
 (import net.minecraft.world.item.Item)
 (import net.minecraft.world.item.ArmorItem)
+(import net.minecraft.world.item.ElytraItem)
+(import net.minecraft.world.item.Rarity)
 (import net.minecraft.world.item.HorseArmorItem)
 (import net.minecraft.world.item.TridentItem)
 (import net.minecraft.world.item.Item$Properties)
@@ -28,7 +30,8 @@
     ; funs should be a list of functions that take an Item.Properties & return an Item.Properties
     (let [registerItem (fn [name supplier]
                          (.register ^DeferredRegister ITEMS name supplier)),
-          fireproof (fn [properties] (.fireResistant ^Item$Properties properties))]
+          fireproof (fn [properties] (.fireResistant ^Item$Properties properties))
+          durability (fn [amount] (fn [properties] (.durability ^Item$Properties properties amount)))]
       (dorun (map (fn [name] (registerItem name (mkSupplier (new Item (mkProperties (. CreativeModeTab TAB_MATERIALS) [fireproof])))))
                   ["raw_hellstone" "hellstone_ingot" "fireproof_plating"]))
       (registerItem "fireproof_turtle_helmet" (mkSupplier (new ArmorItem (. ArmorMaterials TURTLE)
@@ -36,4 +39,8 @@
                                                                (mkProperties (. CreativeModeTab TAB_COMBAT) [fireproof]))))
       (registerItem "fireproof_trident" (mkSupplier (new TridentItem (mkProperties (. CreativeModeTab TAB_COMBAT)
                                                                                    [fireproof
-                                                                                    (fn [properties] (.durability ^Item$Properties properties 250))])))))))
+                                                                                    (durability 250)]))))
+      (registerItem "fireproof_elytra" (mkSupplier (new ElytraItem (mkProperties (. CreativeModeTab TAB_TRANSPORTATION)
+                                                                                 [fireproof
+                                                                                  (durability 432)
+                                                                                  (fn [properties] (.rarity ^Item$Properties properties (. Rarity UNCOMMON)))])))))))
