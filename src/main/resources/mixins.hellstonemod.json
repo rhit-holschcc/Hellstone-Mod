@@ -5,6 +5,7 @@
   "minVersion": "0.8.4",
   "refmap": "mixins.hellstonemod.refmap.json",
   "mixins": [
+    "EquipmentSlotHelper"
   ],
   "client": [
   ],
