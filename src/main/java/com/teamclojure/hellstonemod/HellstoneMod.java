@@ -27,6 +27,7 @@ public class HellstoneMod
 {
     // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
+    private static final String MOD_ID = "hellstonemod";
     private static IFn require = Clojure.var("clojure.core", "require");
     
     public static void main(String[] args) {
@@ -42,14 +43,14 @@ public class HellstoneMod
     	require.invoke(Clojure.read("com.teamclojure.HellstoneMod"));
 
         // Register the setup method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+        eventBus.addListener(this::setup);
         // Register the enqueueIMC method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
+        eventBus.addListener(this::enqueueIMC);
         // Register the processIMC method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
+        eventBus.addListener(this::processIMC);
         
         IFn start = Clojure.var("com.teamclojure.HellstoneMod", "start");
-        start.invoke(eventBus);
+        start.invoke(eventBus, MOD_ID);
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
     }

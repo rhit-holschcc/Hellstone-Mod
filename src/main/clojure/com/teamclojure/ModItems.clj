@@ -7,8 +7,8 @@
 (import net.minecraft.world.item.CreativeModeTab)
 (import java.util.function.Supplier)
 
-(defn register [eventBus]
-  (let [^DeferredRegister ITEMS (DeferredRegister/create ForgeRegistries/ITEMS "hellstonemod"),
+(defn register [eventBus modId]
+  (let [^DeferredRegister ITEMS (DeferredRegister/create ForgeRegistries/ITEMS ^String modId),
         itemRegister (fn [eventBus]
                        (.register ^DeferredRegister ITEMS eventBus))]
     (itemRegister eventBus)

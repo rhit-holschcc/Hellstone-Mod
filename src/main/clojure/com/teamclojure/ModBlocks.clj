@@ -12,9 +12,9 @@
 (import net.minecraft.world.level.material.Material)
 (import java.util.function.Supplier)
 
-(defn register [eventBus]
-  (let [^DeferredRegister ITEMS (DeferredRegister/create ForgeRegistries/ITEMS "hellstonemod"),
-        ^DeferredRegister BLOCKS (DeferredRegister/create ForgeRegistries/BLOCKS "hellstonemod"),
+(defn register [eventBus modId]
+  (let [^DeferredRegister ITEMS (DeferredRegister/create ForgeRegistries/ITEMS ^String modId),
+        ^DeferredRegister BLOCKS (DeferredRegister/create ForgeRegistries/BLOCKS ^String modId),
         itemRegister (fn [eventBus]
                        (.register ^DeferredRegister ITEMS eventBus)),
         blockRegister (fn [eventBus]
