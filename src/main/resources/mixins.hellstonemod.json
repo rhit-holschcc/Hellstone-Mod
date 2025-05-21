@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "com.teamclojure.hellstonemod.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "minVersion": "0.8.4",
+  "refmap": "mixins.hellstonemod.refmap.json",
+  "mixins": [
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
