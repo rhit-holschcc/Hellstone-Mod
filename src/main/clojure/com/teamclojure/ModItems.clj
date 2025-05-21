@@ -21,5 +21,6 @@
                                                           (.tab (net.minecraft.world.item.Item$Properties.) tab)
                                                           funs)))))),
           fireproof (fn [properties] (.fireResistant ^Item$Properties properties))]
-      (registerItem "hellstone_ingot" (. CreativeModeTab TAB_MISC) [fireproof])
-      (registerItem "fireproof_plating" (. CreativeModeTab TAB_MISC) [fireproof]))))
+      (registerItem "raw_hellstone" (. CreativeModeTab TAB_MATERIALS) [fireproof])
+      (registerItem "hellstone_ingot" (. CreativeModeTab TAB_MATERIALS) [fireproof])
+      (registerItem "fireproof_plating" (. CreativeModeTab TAB_MATERIALS) [fireproof]))))
