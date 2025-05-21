@@ -19,6 +19,7 @@
                                       (get [_]
                                         (new Item (reduce (fn [prev fun] (fun prev))
                                                           (.tab (net.minecraft.world.item.Item$Properties.) tab)
-                                                          funs))))))]
-      (registerItem "hellstone_ingot" (. CreativeModeTab TAB_MISC) [])
-      (registerItem "fireproof_plating" (. CreativeModeTab TAB_MISC) [(fn [properties] (.fireResistant ^Item$Properties properties))]))))
+                                                          funs)))))),
+          fireproof (fn [properties] (.fireResistant ^Item$Properties properties))]
+      (registerItem "hellstone_ingot" (. CreativeModeTab TAB_MISC) [fireproof])
+      (registerItem "fireproof_plating" (. CreativeModeTab TAB_MISC) [fireproof]))))
