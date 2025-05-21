@@ -1,4 +1,5 @@
-(ns com.teamclojure.ModBlocks)
+(ns com.teamclojure.ModBlocks
+  (:require [com.teamclojure.RegistrationHelper :as helpful]))
 
 (import net.minecraftforge.eventbus.api.IEventBus)
 (import net.minecraftforge.registries.DeferredRegister)
@@ -10,7 +11,6 @@
 (import net.minecraft.world.level.block.state.BlockBehaviour)
 (import net.minecraft.world.level.block.state.BlockBehaviour$Properties)
 (import net.minecraft.world.level.material.Material)
-(import java.util.function.Supplier)
 
 (defn register [eventBus modId]
   (let [^DeferredRegister ITEMS (DeferredRegister/create ForgeRegistries/ITEMS ^String modId),
@@ -23,20 +23,17 @@
     (itemRegister eventBus)
     (blockRegister eventBus)
 
-    (let [registerBlockItem (fn [name block tab]
+    (let [registerBlockItem (fn [name block tab funs]
                               (.register ^DeferredRegister ITEMS name
-                                         (reify Supplier
-                                           (get [_]
-                                             (new BlockItem (.get ^RegistryObject block)
-                                                  (.tab (net.minecraft.world.item.Item$Properties.) tab)))))),
-          registerBlock (fn [name block tab]
+                                         (helpful/mkSupplier (new BlockItem (.get ^RegistryObject block)
+                                                                  (helpful/mkProperties tab funs))))),
+          registerBlock (fn [name block tab funs]
                           (let [toReturn (.register ^DeferredRegister BLOCKS name block)]
-                            (registerBlockItem name toReturn tab)
+                            (registerBlockItem name toReturn tab funs)
                             (println toReturn)
                             toReturn))]
       (registerBlock "hellstone_ore"
-                     (reify Supplier
-                       (get [_]
-                         (Block. (BlockBehaviour$Properties/of Material/STONE))))
-                                        ;(quote (fn [] (Block. (BlockBehaviour$Properties/of Material/STONE))))
-                     (. CreativeModeTab TAB_MISC)))))
+                     (helpful/mkSupplier (Block. (BlockBehaviour$Properties/of Material/STONE)))
+                                                             ;(quote (fn [] (Block. (BlockBehaviour$Properties/of Material/STONE))))
+                     (. CreativeModeTab TAB_MISC)
+                     [helpful/fireproof]))))
