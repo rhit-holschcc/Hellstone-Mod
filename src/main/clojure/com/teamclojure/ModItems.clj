@@ -19,16 +19,15 @@
     (let [mkProperties (fn [tab funs] (reduce (fn [prev fun] (fun prev))
                                               (.tab (net.minecraft.world.item.Item$Properties.) tab)
                                               funs)),
-          registerItem (fn [name properties]
-                         (.register ^DeferredRegister ITEMS name
-                                    (reify Supplier
-                                      (get [_]
-                                        (new Item properties))))),
+          registerItem (fn [name supplier]
+                         (.register ^DeferredRegister ITEMS name supplier)),
           fireproof (fn [properties] (.fireResistant ^Item$Properties properties))]
-      (dorun (map (fn [name] (registerItem name (mkProperties (. CreativeModeTab TAB_MATERIALS) [fireproof])))
+      (dorun (map (fn [name] (registerItem name (reify Supplier
+                                                  (get [_]
+                                                    (new Item (mkProperties (. CreativeModeTab TAB_MATERIALS) [fireproof]))))))
                   ["raw_hellstone" "hellstone_ingot" "fireproof_plating"]))
-      (.register ^DeferredRegister ITEMS "fireproof_turtle_helmet" (reify Supplier
-                                                                     (get [_]
-                                                                       (new ArmorItem (. ArmorMaterials TURTLE)
-                                                                            (. EquipmentSlot HEAD)
-                                                                            (mkProperties (. CreativeModeTab TAB_COMBAT) [fireproof]))))))))
+      (registerItem "fireproof_turtle_helmet" (reify Supplier
+                                                (get [_]
+                                                  (new ArmorItem (. ArmorMaterials TURTLE)
+                                                       (. EquipmentSlot HEAD)
+                                                       (mkProperties (. CreativeModeTab TAB_COMBAT) [fireproof]))))))))
