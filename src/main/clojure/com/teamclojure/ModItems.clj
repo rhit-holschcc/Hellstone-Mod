@@ -3,6 +3,7 @@
 (import net.minecraftforge.registries.DeferredRegister)
 (import net.minecraftforge.registries.ForgeRegistries)
 (import net.minecraft.world.item.Item)
+(import net.minecraft.world.item.Item$Properties)
 (import net.minecraft.world.item.CreativeModeTab)
 (import java.util.function.Supplier)
 
@@ -11,9 +12,13 @@
         itemRegister (fn [eventBus]
                        (.register ^DeferredRegister ITEMS eventBus))]
     (itemRegister eventBus)
-    (let [registerItem (fn [name tab]
+    ; funs should be a list of functions that take an Item.Properties & return an Item.Properties
+    (let [registerItem (fn [name tab funs]
                          (.register ^DeferredRegister ITEMS name
                                     (reify Supplier
                                       (get [_]
-                                        (new Item (.tab (net.minecraft.world.item.Item$Properties.) tab))))))]
-      (registerItem "hellstone_ingot" (. CreativeModeTab TAB_MISC)))))
+                                        (new Item (reduce (fn [prev fun] (fun prev))
+                                                          (.tab (net.minecraft.world.item.Item$Properties.) tab)
+                                                          funs))))))]
+      (registerItem "hellstone_ingot" (. CreativeModeTab TAB_MISC) [])
+      (registerItem "fireproof_plating" (. CreativeModeTab TAB_MISC) [(fn [properties] (.fireResistant ^Item$Properties properties))]))))
