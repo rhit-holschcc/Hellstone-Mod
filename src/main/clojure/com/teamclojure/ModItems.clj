@@ -16,10 +16,8 @@
 (import net.minecraft.resources.ResourceLocation)
 
 (defn register [eventBus modId]
-  (let [^DeferredRegister ITEMS (DeferredRegister/create ForgeRegistries/ITEMS ^String modId),
-        itemRegister (fn [eventBus]
-                       (.register ^DeferredRegister ITEMS eventBus))]
-    (itemRegister eventBus)
+  (let [^DeferredRegister ITEMS (DeferredRegister/create ForgeRegistries/ITEMS ^String modId)]
+    (.register ^DeferredRegister ITEMS eventBus)
     (let [registerItem (fn [name supplier]
                          (.register ^DeferredRegister ITEMS name supplier)),
           durability (fn [amount] (fn [properties] (.durability ^Item$Properties properties amount)))]
