@@ -218,7 +218,6 @@ clojure {
     builds {
 	main {
 	    aotAll()
-	    setReflection("fail")
 	}
     }
 }

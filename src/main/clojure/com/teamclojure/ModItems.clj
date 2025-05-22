@@ -5,7 +5,6 @@
 (import net.minecraftforge.registries.ForgeRegistries)
 (import net.minecraft.world.item.Item)
 (import net.minecraft.world.item.ArmorItem)
-(import net.minecraft.world.item.BlockItem)
 (import net.minecraft.world.item.ElytraItem)
 (import net.minecraft.world.item.Rarity)
 (import net.minecraft.world.item.HorseArmorItem)
@@ -14,7 +13,6 @@
 (import net.minecraft.world.item.CreativeModeTab)
 (import net.minecraft.world.entity.EquipmentSlot)
 (import net.minecraft.world.item.ArmorMaterials)
-(import net.minecraft.world.level.block.Blocks)
 
 (defn register [eventBus modId]
   (let [^DeferredRegister ITEMS (DeferredRegister/create ForgeRegistries/ITEMS ^String modId),
@@ -35,4 +33,5 @@
       (registerItem "fireproof_elytra" (helpful/mkSupplier (new ElytraItem (helpful/mkProperties (. CreativeModeTab TAB_TRANSPORTATION)
                                                                                                  [helpful/fireproof
                                                                                                   (durability 432)
-                                                                                                  (fn [properties] (.rarity ^Item$Properties properties (. Rarity UNCOMMON)))])))))))
+                                                                                                  (fn [properties] (.rarity ^Item$Properties properties (. Rarity UNCOMMON)))]))))
+      (registerItem "fireproof_horse_armor" (helpful/mkSupplier (new HorseArmorItem 11 "diamond" (helpful/mkProperties (. CreativeModeTab TAB_MISC) [helpful/fireproof])))))))
