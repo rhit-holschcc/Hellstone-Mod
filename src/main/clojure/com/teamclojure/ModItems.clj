@@ -13,6 +13,7 @@
 (import net.minecraft.world.item.CreativeModeTab)
 (import net.minecraft.world.entity.EquipmentSlot)
 (import net.minecraft.world.item.ArmorMaterials)
+(import net.minecraft.resources.ResourceLocation)
 
 (defn register [eventBus modId]
   (let [^DeferredRegister ITEMS (DeferredRegister/create ForgeRegistries/ITEMS ^String modId),
@@ -34,4 +35,6 @@
                                                                                                  [helpful/fireproof
                                                                                                   (durability 432)
                                                                                                   (fn [properties] (.rarity ^Item$Properties properties (. Rarity UNCOMMON)))]))))
-      (registerItem "fireproof_horse_armor" (helpful/mkSupplier (new HorseArmorItem 11 "diamond" (helpful/mkProperties (. CreativeModeTab TAB_MISC) [helpful/fireproof])))))))
+      (registerItem "fireproof_horse_armor" (helpful/mkSupplier (new HorseArmorItem 11
+                                                                     (new ResourceLocation modId "textures/entity/horse/armor/horse_armor_fireproof.png")
+                                                                     (helpful/mkProperties (. CreativeModeTab TAB_MISC) [helpful/fireproof])))))))
