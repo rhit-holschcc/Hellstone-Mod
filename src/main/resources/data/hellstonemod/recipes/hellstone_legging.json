@@ -3,7 +3,7 @@
   "pattern": [
     "###",
     "# #",
-    "   "
+    "# #"
   ],
   "key": {
     "#": {
@@ -11,6 +11,6 @@
     }
   },
   "result": {
-    "item": "hellstonemod:hellstone_helmet"
+    "item": "hellstonemod:hellstone_leggings"
   }
 }
