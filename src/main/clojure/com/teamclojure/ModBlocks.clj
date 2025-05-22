@@ -12,6 +12,8 @@
 (import net.minecraft.world.level.material.Material)
 (import java.util.function.Supplier)
 
+
+
 (defn register [eventBus modId]
   (let [^DeferredRegister ITEMS (DeferredRegister/create ForgeRegistries/ITEMS ^String modId),
         ^DeferredRegister BLOCKS (DeferredRegister/create ForgeRegistries/BLOCKS ^String modId),
@@ -33,10 +35,33 @@
                           (let [toReturn (.register ^DeferredRegister BLOCKS name block)]
                             (registerBlockItem name toReturn tab)
                             (println toReturn)
-                            toReturn))]
-      (registerBlock "hellstone_ore"
-                     (reify Supplier
-                       (get [_]
-                         (Block. (BlockBehaviour$Properties/of Material/STONE))))
-                                        ;(quote (fn [] (Block. (BlockBehaviour$Properties/of Material/STONE))))
-                     (. CreativeModeTab TAB_MISC)))))
+                            toReturn))
+          HELLSTONE_ORE (registerBlock "hellstone_ore"
+                         (reify Supplier
+                                (get [_]
+                                     (Block. (BlockBehaviour$Properties/of Material/STONE))))
+                         ;(quote (fn [] (Block. (BlockBehaviour$Properties/of Material/STONE))))
+                         (. CreativeModeTab TAB_MISC))
+          HELLSTONE_BLOCK (registerBlock "hellstone_block"
+                                         (reify Supplier
+                                                (get [_]
+                                                     (Block. (.. BlockBehaviour$Properties
+                                                                 (of Material/METAL)
+                                                                 (strength 3.0 3.0)
+                                                                 )
+                                                             )))
+                                         ;(quote (fn [] (Block. (BlockBehaviour$Properties/of Material/STONE))))
+                                         (. CreativeModeTab TAB_MISC))
+          ]
+
+
+      )
+
+    )
+  )
+
+
+
+
+
+
