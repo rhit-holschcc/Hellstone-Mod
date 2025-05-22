@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "hellstonemod:block/fireproof_shulker_box"
+      "model": "minecraft:block/yellow_shulker_box"
     }
   }
 }

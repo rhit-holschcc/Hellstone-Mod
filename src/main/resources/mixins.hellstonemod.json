@@ -8,6 +8,7 @@
     "EquipmentSlotHelper"
   ],
   "client": [
+    "ElytraLayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
