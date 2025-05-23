@@ -1,5 +1,6 @@
 (ns com.teamclojure.ModItems)
 
+(import com.teamclojure.hellstonemod.HellstoneSwordItem)
 (import net.minecraftforge.registries.DeferredRegister)
 (import net.minecraftforge.registries.ForgeRegistries)
 (import net.minecraft.world.item.Item)
@@ -63,13 +64,19 @@
                                                      (. EquipmentSlot FEET)
                                                      (mkProperties (. CreativeModeTab TAB_COMBAT) [fireproof])
                                                      )))
-      (registerItem "hellstone_sword" (mkSupplier (new SwordItem
-                                                    (ForgeTier. 2 1400 8.0 4.0 10 BlockTags/NEEDS_IRON_TOOL
-                                                      (mkSupplier (Ingredient/of (ItemTags/IRON_ORES))))
-                                                    2
-                                                    3
-                                                    (mkProperties (. CreativeModeTab TAB_COMBAT) [fireproof])
-                                                           )))
+      (registerItem "hellstone_sword"
+                    (mkSupplier
+                     (HellstoneSwordItem.
+                       (ForgeTier. 2
+                                   1400
+                                   8.0
+                                   4.0
+                                   10
+                                   BlockTags/NEEDS_IRON_TOOL
+                                   (mkSupplier (Ingredient/of (ItemTags/IRON_ORES))))
+                       2
+                       3.0
+                       (mkProperties (. CreativeModeTab TAB_COMBAT) [fireproof]))))
       (registerItem "hellstone_axe" (mkSupplier (new AxeItem
                                                     (ForgeTier. 2 1400 8.0 4.0 10 BlockTags/NEEDS_IRON_TOOL
                                                                 (mkSupplier (Ingredient/of (ItemTags/IRON_ORES))))
