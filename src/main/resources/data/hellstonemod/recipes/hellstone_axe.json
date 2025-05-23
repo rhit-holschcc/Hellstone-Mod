@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "## ",
+    "#| ",
+    " | "
+  ],
+  "key": {
+    "#": {
+      "item": "hellstonemod:hellstone_ingot"
+    },
+    "|": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "hellstonemod:hellstone_axe"
+  }
+}

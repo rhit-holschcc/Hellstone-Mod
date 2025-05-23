@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:diamond_horse_armor"
+  },
+  "addition": {
+    "item": "hellstonemod:fireproof_plating"
+  },
+  "result": {
+    "item": "hellstonemod:fireproof_horse_armor"
+  }
+}
