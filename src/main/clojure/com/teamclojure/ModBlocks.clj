@@ -69,7 +69,7 @@
           rareOrePlacement (fn [pInt pModifier]
                              (orePlacement (RarityFilter/onAverageOnceEvery pInt) pModifier))
           HELLSTONE_ORE (registerBlock "hellstone_ore"
-                                       (helpful/mkSupplier (Block. (BlockBehaviour$Properties/of Material/STONE)))
+                                       (helpful/mkSupplier (Block. (.strength (BlockBehaviour$Properties/of Material/STONE) 1.0)))
                                         ;(quote (fn [] (Block. (BlockBehaviour$Properties/of Material/STONE))))
                                        (. CreativeModeTab TAB_MISC)
                                        [helpful/fireproof])
