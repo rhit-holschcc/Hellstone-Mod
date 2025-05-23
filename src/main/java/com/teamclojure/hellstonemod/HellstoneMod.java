@@ -27,8 +27,8 @@ public class HellstoneMod
 {
     // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
-    private static final String MOD_ID = "hellstonemod";
-    private static IFn require = Clojure.var("clojure.core", "require");
+    public static final String MOD_ID = "hellstonemod";
+    protected static IFn require = Clojure.var("clojure.core", "require");
     
     public static void main(String[] args) {
     	require.invoke(Clojure.read("com.teamclojure.HellstoneMod"));

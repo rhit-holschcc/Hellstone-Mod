@@ -5,6 +5,9 @@
 (defn start [eventBus modId]
   (blocks/register eventBus modId)
   (items/register eventBus modId))
+  
+(defn biomeLoadingEvent [event]
+	(blocks/biomeLoadingEvent event))
 
 (defn clj-message []
 	"Hello Clojure")
