@@ -31,8 +31,6 @@
 (import net.minecraftforge.event.world.BiomeLoadingEvent)
 (import java.util.ArrayList)
 (import java.util.List)
-(import net.minecraft.world.level.block.entity.BlockEntityType$Builder)
-(import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity)
 
 (def vein_size 20)
 (def veins_per_chunk 100)
@@ -79,7 +77,7 @@
                                                                                               (.dynamicShape (.noOcclusion (.strength (BlockBehaviour$Properties/of Material/STONE) 2.0)))))
                                              (. CreativeModeTab TAB_DECORATIONS)
                                              [helpful/fireproof])]
-      (let [HELLSTONE_ORES_GEN (new ArrayList),
+            (let [HELLSTONE_ORES_GEN (new ArrayList),
             HELLSTONE_ORE_HOLDER (. FeatureUtils register "hellstone_ore" Feature/ORE (new OreConfiguration HELLSTONE_ORES_GEN vein_size))
             HELLSTONE_ORE_PLACED (PlacementUtils/register "hellstone_ore_placed"
                                                           ^Holder HELLSTONE_ORE_HOLDER
