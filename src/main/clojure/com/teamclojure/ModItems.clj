@@ -21,7 +21,6 @@
 (import net.minecraft.world.item.ArmorMaterials)
 (import net.minecraft.resources.ResourceLocation)
 (import com.teamclojure.hellstonemod.ModArmourMaterials)
-(import java.util.function.Supplier)
 (import net.minecraftforge.common.ForgeTier)
 (import net.minecraft.tags.ItemTags)
 (import net.minecraft.tags.BlockTags)
@@ -47,61 +46,53 @@
                                                                                                   (fn [properties] (.rarity ^Item$Properties properties (. Rarity UNCOMMON)))]))))
       (registerItem "fireproof_horse_armor" (helpful/mkSupplier (new HorseArmorItem 11
                                                                      (new ResourceLocation modId "textures/entity/horse/armor/horse_armor_fireproof.png")
-                                                                     (helpful/mkProperties (. CreativeModeTab TAB_MISC) [helpful/fireproof])))))
-      (registerItem "hellstone_helmet" (mkSupplier (new ArmorItem (. ModArmourMaterials HELLSTONE)
-                                                     (. EquipmentSlot HEAD)
-                                                     (mkProperties (. CreativeModeTab TAB_COMBAT) [fireproof])
-                                                     )))
-      (registerItem "hellstone_leggings" (mkSupplier (new ArmorItem (. ModArmourMaterials HELLSTONE)
-                                                     (. EquipmentSlot LEGS)
-                                                     (mkProperties (. CreativeModeTab TAB_COMBAT) [fireproof])
-                                                     )))
-      (registerItem "hellstone_chestplate" (mkSupplier (new ArmorItem (. ModArmourMaterials HELLSTONE)
-                                                     (. EquipmentSlot CHEST)
-                                                     (mkProperties (. CreativeModeTab TAB_COMBAT) [fireproof])
-                                                     )))
-      (registerItem "hellstone_boots" (mkSupplier (new ArmorItem (. ModArmourMaterials HELLSTONE)
-                                                     (. EquipmentSlot FEET)
-                                                     (mkProperties (. CreativeModeTab TAB_COMBAT) [fireproof])
-                                                     )))
+                                                                     (helpful/mkProperties (. CreativeModeTab TAB_MISC) [helpful/fireproof]))))
+      (registerItem "hellstone_helmet" (helpful/mkSupplier (new ArmorItem (. ModArmourMaterials HELLSTONE)
+                                                        (. EquipmentSlot HEAD)
+                                                        (helpful/mkProperties (. CreativeModeTab TAB_COMBAT) [helpful/fireproof]))))
+      (registerItem "hellstone_leggings" (helpful/mkSupplier (new ArmorItem (. ModArmourMaterials HELLSTONE)
+                                                          (. EquipmentSlot LEGS)
+                                                          (helpful/mkProperties (. CreativeModeTab TAB_COMBAT) [helpful/fireproof]))))
+      (registerItem "hellstone_chestplate" (helpful/mkSupplier (new ArmorItem (. ModArmourMaterials HELLSTONE)
+                                                            (. EquipmentSlot CHEST)
+                                                            (helpful/mkProperties (. CreativeModeTab TAB_COMBAT) [helpful/fireproof]))))
+      (registerItem "hellstone_boots" (helpful/mkSupplier (new ArmorItem (. ModArmourMaterials HELLSTONE)
+                                                       (. EquipmentSlot FEET)
+                                                       (helpful/mkProperties (. CreativeModeTab TAB_COMBAT) [helpful/fireproof]))))
       (registerItem "hellstone_sword"
-                    (mkSupplier
+                    (helpful/mkSupplier
                      (HellstoneSwordItem.
-                       (ForgeTier. 2
-                                   1400
-                                   8.0
-                                   4.0
-                                   10
-                                   BlockTags/NEEDS_IRON_TOOL
-                                   (mkSupplier (Ingredient/of (ItemTags/IRON_ORES))))
-                       2
-                       3.0
-                       (mkProperties (. CreativeModeTab TAB_COMBAT) [fireproof]))))
-      (registerItem "hellstone_axe" (mkSupplier (new AxeItem
-                                                    (ForgeTier. 2 1400 8.0 4.0 10 BlockTags/NEEDS_IRON_TOOL
-                                                                (mkSupplier (Ingredient/of (ItemTags/IRON_ORES))))
-                                                    2
-                                                    3
-                                                    (mkProperties (. CreativeModeTab TAB_COMBAT) [fireproof])
-                                                    )))
-      (registerItem "hellstone_pickaxe" (mkSupplier (new PickaxeItem
-                                                    (ForgeTier. 2 1400 8.0 4.0 10 BlockTags/NEEDS_IRON_TOOL
-                                                                (mkSupplier (Ingredient/of (ItemTags/IRON_ORES))))
-                                                    2
-                                                    3
-                                                    (mkProperties (. CreativeModeTab TAB_COMBAT) [fireproof])
-                                                    )))
-      (registerItem "hellstone_hoe" (mkSupplier (new HoeItem
-                                                    (ForgeTier. 2 1400 8.0 4.0 10 BlockTags/NEEDS_IRON_TOOL
-                                                                (mkSupplier (Ingredient/of (ItemTags/IRON_ORES))))
-                                                    2
-                                                    3
-                                                    (mkProperties (. CreativeModeTab TAB_COMBAT) [fireproof])
-                                                    )))
-      (registerItem "hellstone_shovel" (mkSupplier (new ShovelItem
-                                                    (ForgeTier. 2 1400 8.0 4.0 10 BlockTags/NEEDS_IRON_TOOL
-                                                                (mkSupplier (Ingredient/of (ItemTags/IRON_ORES))))
-                                                    2
-                                                    3
-                                                    (mkProperties (. CreativeModeTab TAB_COMBAT) [fireproof])
-                                                    ))))))
+                      (ForgeTier. 2
+                                  1400
+                                  8.0
+                                  4.0
+                                  10
+                                  BlockTags/NEEDS_IRON_TOOL
+                                  (helpful/mkSupplier (Ingredient/of (ItemTags/IRON_ORES))))
+                      2
+                      3.0
+                      (helpful/mkProperties (. CreativeModeTab TAB_COMBAT) [helpful/fireproof]))))
+      (registerItem "hellstone_axe" (helpful/mkSupplier (new AxeItem
+                                                     (ForgeTier. 2 1400 8.0 4.0 10 BlockTags/NEEDS_IRON_TOOL
+                                                                 (helpful/mkSupplier (Ingredient/of (ItemTags/IRON_ORES))))
+                                                     2
+                                                     3
+                                                     (helpful/mkProperties (. CreativeModeTab TAB_COMBAT) [helpful/fireproof]))))
+      (registerItem "hellstone_pickaxe" (helpful/mkSupplier (new PickaxeItem
+                                                         (ForgeTier. 2 1400 8.0 4.0 10 BlockTags/NEEDS_IRON_TOOL
+                                                                     (helpful/mkSupplier (Ingredient/of (ItemTags/IRON_ORES))))
+                                                         2
+                                                         3
+                                                         (helpful/mkProperties (. CreativeModeTab TAB_COMBAT) [helpful/fireproof]))))
+      (registerItem "hellstone_hoe" (helpful/mkSupplier (new HoeItem
+                                                     (ForgeTier. 2 1400 8.0 4.0 10 BlockTags/NEEDS_IRON_TOOL
+                                                                 (helpful/mkSupplier (Ingredient/of (ItemTags/IRON_ORES))))
+                                                     2
+                                                     3
+                                                     (helpful/mkProperties (. CreativeModeTab TAB_COMBAT) [helpful/fireproof]))))
+      (registerItem "hellstone_shovel" (helpful/mkSupplier (new ShovelItem
+                                                        (ForgeTier. 2 1400 8.0 4.0 10 BlockTags/NEEDS_IRON_TOOL
+                                                                    (helpful/mkSupplier (Ingredient/of (ItemTags/IRON_ORES))))
+                                                        2
+                                                        3
+                                                        (helpful/mkProperties (. CreativeModeTab TAB_COMBAT) [helpful/fireproof])))))))
