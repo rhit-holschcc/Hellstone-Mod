@@ -73,6 +73,16 @@
                                         ;(quote (fn [] (Block. (BlockBehaviour$Properties/of Material/STONE))))
                                        (. CreativeModeTab TAB_MISC)
                                        [helpful/fireproof])
+									   HELLSTONE_BLOCK (registerBlock "hellstone_block"
+                                         (reify Supplier
+                                                (get [_]
+                                                     (Block. (.. BlockBehaviour$Properties
+                                                                 (of Material/METAL)
+                                                                 (strength 3.0 3.0)
+                                                                 )
+                                                             )))
+                                         ;(quote (fn [] (Block. (BlockBehaviour$Properties/of Material/STONE))))
+                                         (. CreativeModeTab TAB_MISC))
           fireproofShulkerBox (registerBlock "fireproof_shulker_box" (helpful/mkSupplier (new ShulkerBoxBlock (. DyeColor YELLOW)
                                                                                               (.dynamicShape (.noOcclusion (.strength (BlockBehaviour$Properties/of Material/STONE) 2.0)))))
                                              (. CreativeModeTab TAB_DECORATIONS)
