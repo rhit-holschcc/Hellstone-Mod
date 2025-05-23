@@ -31,6 +31,8 @@
 (import net.minecraftforge.event.world.BiomeLoadingEvent)
 (import java.util.ArrayList)
 (import java.util.List)
+(import net.minecraft.world.level.block.entity.BlockEntityType$Builder)
+(import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity)
 
 (def vein_size 20)
 (def veins_per_chunk 100)
@@ -38,6 +40,7 @@
 (defn register [eventBus modId]
   (let [^DeferredRegister ITEMS (DeferredRegister/create ForgeRegistries/ITEMS ^String modId),
         ^DeferredRegister BLOCKS (DeferredRegister/create ForgeRegistries/BLOCKS ^String modId),
+        ^DeferredRegister blockEntities (DeferredRegister/create ForgeRegistries/BLOCK_ENTITIES ^String modId),
         itemRegister (fn [eventBus]
                        (.register ^DeferredRegister ITEMS eventBus)),
         blockRegister (fn [eventBus]
@@ -45,6 +48,7 @@
 
     (itemRegister eventBus)
     (blockRegister eventBus)
+    (.register ^DeferredRegister blockEntities eventBus)
 
     (let [registerBlockItem (fn [name block tab funs]
                               (.register ^DeferredRegister ITEMS name
@@ -54,7 +58,7 @@
                           (let [toReturn (.register ^DeferredRegister BLOCKS name block)]
                             (registerBlockItem name toReturn tab funs)
                             (println toReturn)
-                            toReturn))
+                            toReturn)),
           orePlacement (fn [pModifier1 pModifier2]
                          (let [toReturn (new ArrayList)]
                            (.add toReturn pModifier1)
@@ -67,14 +71,14 @@
           rareOrePlacement (fn [pInt pModifier]
                              (orePlacement (RarityFilter/onAverageOnceEvery pInt) pModifier))
           HELLSTONE_ORE (registerBlock "hellstone_ore"
-                         (helpful/mkSupplier (Block. (BlockBehaviour$Properties/of Material/STONE)))
+                                       (helpful/mkSupplier (Block. (BlockBehaviour$Properties/of Material/STONE)))
                                         ;(quote (fn [] (Block. (BlockBehaviour$Properties/of Material/STONE))))
-                         (. CreativeModeTab TAB_MISC)
-                         [helpful/fireproof])]
-      (registerBlock "fireproof_shulker_box" (helpful/mkSupplier (new ShulkerBoxBlock (. DyeColor YELLOW)
-                                                                      (.dynamicShape (.noOcclusion (.strength (BlockBehaviour$Properties/of Material/STONE) 2.0)))))
-                     (. CreativeModeTab TAB_DECORATIONS)
-                     [helpful/fireproof])
+                                       (. CreativeModeTab TAB_MISC)
+                                       [helpful/fireproof])
+          fireproofShulkerBox (registerBlock "fireproof_shulker_box" (helpful/mkSupplier (new ShulkerBoxBlock (. DyeColor YELLOW)
+                                                                                              (.dynamicShape (.noOcclusion (.strength (BlockBehaviour$Properties/of Material/STONE) 2.0)))))
+                                             (. CreativeModeTab TAB_DECORATIONS)
+                                             [helpful/fireproof])]
       (let [HELLSTONE_ORES_GEN (new ArrayList),
             HELLSTONE_ORE_HOLDER (. FeatureUtils register "hellstone_ore" Feature/ORE (new OreConfiguration HELLSTONE_ORES_GEN vein_size))
             HELLSTONE_ORE_PLACED (PlacementUtils/register "hellstone_ore_placed"
